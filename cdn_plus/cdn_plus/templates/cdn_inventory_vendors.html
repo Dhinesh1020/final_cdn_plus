@@ -1,0 +1,87 @@
+<!-- landing_page.html -->
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block right_content %}
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        .card-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin: 20px;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            padding: 20px;
+            width: 250px;
+            text-align: center;
+        }
+
+        .card img {
+            max-width: 150px;
+            max-height: 150px;
+            margin: 0 auto; /* Center the image horizontally */
+            display: block; /* Remove default inline behavior */
+            margin-bottom: 10px;
+        }
+
+        .big-card img {
+            width: 600px;
+            height: 470px;
+            margin: 0 auto; /* Center the image horizontally */
+            display: block; /* Remove default inline behavior */
+            margin-bottom: 10px;
+        }
+        /* New styles for the big card at the bottom */
+        .big-card {
+           /*  background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+            margin: 10px;
+            /*  padding: 20px; */
+            width: 100%;
+            text-align: center;
+        }
+
+    </style>
+
+    <div class="card-container">
+        <div class="row" style="width:-webkit-fill-available;">
+            <div class="col-md-4" style="text-align:-webkit-center;">
+                <a href="{% url 'distribution' %}">
+                <div class="card">
+                    <img src="{% static 'cdn_plus/css/amazon_cloud_front_logo.png' %}" alt="Amazon Cloud Front">
+                </div>
+                </a>
+
+                <div class="card">
+                    <img src="{% static 'cdn_plus/css/azure_logo.png' %}" alt="Azure CDN">
+                </div>
+
+                <div class="card">
+                    <img src="{% static 'cdn_plus/css/cloud_flare_logo.png' %}" alt="Cloud Flare">
+                </div>
+            </div>
+        <!-- New big card at the bottom -->
+        <div class="col-md-8">
+                <div class="big-card">
+                    <a href="https://appviewx.com/">
+                    <img src="{% static 'cdn_plus/css/login_banner.png' %}" alt="Cloud Flare">
+                    </a>
+                </div>
+        </div>
+    </div>
+{% endblock %}

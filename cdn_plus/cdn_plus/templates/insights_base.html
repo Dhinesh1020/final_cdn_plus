@@ -1,0 +1,104 @@
+<!-- landing_page.html -->
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block right_content %}
+    <style>
+        /* body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        } */
+
+        .card-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin: 20px;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            padding: 20px;
+            width: 250px;
+            height: 150px;
+            vertical-align: middle;
+            text-align: center;
+            transition: transform 0.3s;
+            border: 2px solid #3498db; /* Add border for a nice touch */
+            color: #192A56; /* Set the text color to #192A56 */
+            text-decoration: none;
+        }
+
+        .card:hover {
+            text-decoration: none;
+            transform: scale(1.05); /* Enlarge the card on hover */
+        }
+
+        .card img {
+            max-width: 150px;
+            max-height: 150px;
+            margin: 0 auto; /* Center the image horizontally */
+            display: block; /* Remove default inline behavior */
+            margin-bottom: 10px;
+        }
+
+        .card h3 {
+            font-weight: bold; /* Make the text bold */
+            margin-bottom: 10px; /* Add spacing between text and image */
+        }
+        .big-card img {
+            width: 680px;
+            height: 470px;
+            margin: 0 auto; /* Center the image horizontally */
+            display: block; /* Remove default inline behavior */
+        }
+        /* New styles for the big card at the bottom */
+        .big-card {
+           /*  background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+            margin: 10px;
+            /*  padding: 20px; */
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+
+    <script>
+        function openModal(title, url) {
+            // You can modify this function to open a modal or navigate to the specified URL
+            // For now, let's assume you want to navigate to the URL
+            window.location.href = url;
+        }
+    </script>
+
+    <div class="card-container">
+        <div class="row" style="width:-webkit-fill-available;">
+            <div class="col-md-4" style="text-align:-webkit-center;">
+                <div class="card" onclick="openModal('Edge Server Usage', 'insight_usage.html')">
+                    <h3>Edge Server Usage</h3>
+                </div>
+
+                <div class="card" onclick="openModal('Edge Monitoring', 'insight_monitoring.html')">
+                    <h3>Edge Monitoring</h3>
+                </div>
+                <div class="card" onclick="openModal('Cache Statistics', 'insight_cache_statistics.html')">
+                    <h3>CDN Cache Statistics</h3>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="big-card">
+                    <img src="{% static 'cdn_plus/css/chart.svg' %}" alt="Cloud Flare">
+                </div>
+            </div>
+    </div>
+</div>
+
+{% endblock %}

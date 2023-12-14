@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block right_content %}
+    <div>
+
+        {% if alert_message %}
+            <script>
+                alert("{{ alert_message }}");
+            </script>
+        {% endif %}        
+
+        <h2>Distribution Inventory</h2>
+        <p style="font-size: 20px;">Centralized management for multi-CDN infrastructure</p>
+        <div style="position: relative;">
+            <h1>Managed CDN Distributions</h1>
+            <div style="position: absolute; top: 0; right: 0; margin-top: 10px; margin-right: 10px;">
+                <button id="reload-button" class="styled-button" style="background-color: #4a64a9">Create Distribution</button>
+            </div>
+        </div>
+
+        <style>           
+            .styled-button {
+                padding: 10px 20px;
+                font-size: 16px;
+                background-color: #808080; /* Grey color */
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                margin-right: 10px;
+                margin-bottom: 10px; /* Add margin-bottom to create vertical space */
+            }
+        
+            .styled-button:hover {
+                background-color: #666666; /* Darker grey on hover */
+            }            
+            .styled-button {
+                padding: 10px 20px;
+                font-size: 16px;
+                background-color: #808080; /* Grey color */
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                margin-right: 10px;
+            }
+
+            .styled-button:hover {
+                background-color: #666666; /* Darker grey on hover */
+            }
+
+            .data-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+
+            .data-table th, .data-table td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+            }
+
+            .data-table tbody tr:hover {
+                background-color: #d9d9d9; /* Darker hover color */
+            }
+
+            .data-table input[type="checkbox"] {
+                transform: scale(1.5); /* Adjust the size of the checkbox */
+                margin-right: 5px;
+            }
+
+            .data-table .selected-row {
+                background-color: #e0e0e0;
+            }
+            .action-buttons {
+              display: flex;
+              flex-direction: column;
+            }     
+            .styled-button {
+                /* existing styles */
+                width: 100%; /* Adjust the width as needed */
+                border-collapse: collapse;               
+            }              
+        </style>
+
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <!--<th><input type="checkbox" id="select-all-checkbox"></th>-->
+                    <!--<th>ID</th>-->
+                    <th>Vendor</th>
+                    <!--<th>Description</th>-->
+                    <th>Domain name</th>
+                    <!-- <th>Hosted Regions</th> -->
+                    <th>Origin Domain</th>
+                    <th>State</th>                    
+                    <th>Status</th>
+                    <th>Last modified</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in data %}
+                <tr>
+                    <!--<td><input type="checkbox"></td>-->
+                    <!--<td>{{ item.id }}</td>-->
+                    <td>
+                        {% if item.vendor == "CloudFront" %}
+                            <img src="{% static 'cdn_plus/css/cloudfront.png' %}" alt="Logo" style="max-width:200px;max-height:150px;">
+                        {% else %}
+                            <img src="{% static 'cdn_plus/css/azure_cdn.png' %}" alt="Logo" style="max-width:150px; max-height:70px; margin-left: 40px;">
+                        {% endif %}
+                    </td>
+                    <!--<td>{{ item.vendor }}</td>-->
+                    <!--<td>{{ item.description }}</td>-->
+                    <td><a href="{% url 'map' item.domain_name %}">{{ item.domain_name }}</a></td>
+                    <!-- <td>{{ item.regions }}</td> -->
+                    <td>{{ item.origins }}</td>
+                    <td>{{ item.state }}</td>                    
+                    <td>{{ item.status }}</td>
+                    <td>{{ item.last_modified }}</td>
+                    <td class="action-buttons">
+                        <a href="{% url 'enable_distribution' item.domain_name %}" class="styled-button" style="background-color: #80d580">Enable</a>
+                        <a href="{% url 'disable_distribution' item.domain_name %}" class="styled-button" style="background-color: #bdb4b4;">Disable</a>
+                        <a href="{% url 'delete_distribution' item.domain_name %}" class="styled-button" style="background-color: #e58686">Delete</a>                                             
+                  </td>                  
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Find the button by its ID
+            var reloadButton = document.getElementById("reload-button");
+        
+            // Add a click event listener
+            reloadButton.addEventListener("click", function() {
+                // Redirect to the /add_distribution page
+                window.location.href = "/add_distribution";
+            });
+        });
+        </script>    
+{% endblock %}

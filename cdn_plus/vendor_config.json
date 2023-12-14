@@ -1,0 +1,9 @@
+{
+    "vendor_config": {
+        "cloudfront": {
+            "aws_access_key": "AKIAWUYSNVWR6DQKVRPS",
+            "aws_secret_access_key": "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",
+            "aws_region": "us-east-1"
+        }
+    }
+}

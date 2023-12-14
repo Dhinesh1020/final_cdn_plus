@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block right_content %}
+    <div>
+        <h3>DNS Requests of CDN</h3>
+        <p>List of all DNS Requests and their details.</p>
+        
+        <h1>Managed DNS Records</h1>
+    
+        <table class="data-table" border="1">
+            <thead>
+                <tr>
+                    <th>Domain</th>
+                    <th>Alias</th>
+                    <th>Cname</th>
+                    <th>TTL</th>
+                    <th>Associated Distribution</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cname_object in cname_objects %}
+                <tr>
+                    <td>{{ cname_object.domain }}</td>
+                    <td>{{ cname_object.alias }}</td>
+                    <td>{{ cname_object.cname }}</td>
+                    <td>{{ cname_object.ttl }}</td>
+                    <td class="action-buttons">
+                        {% if cname_object.associated_distribution == "No distribution" %}
+                            <a href="{% url 'add_distribution' %}?origin_domain={{ cname_object.domain }}" class="styled-button">Create</a>
+                        {% else %}
+                            <a href="{% url 'map' cname_object.cname %}">{{ cname_object.associated_distribution }}</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+

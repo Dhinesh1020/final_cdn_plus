@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Multiple ApexCharts with Headers
+{% endblock %}
+
+{% block right_content %}
+    <div class="container mt-5">
+        <h1 class="text-center"></h1>
+
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Chart Container for chart1 -->
+                <h2 class="text-center">Data Transfer by protocol</h2>
+                <div id="chart1"></div>
+            </div>
+            <div class="col-md-6">
+                <!-- Chart Container for chart2 -->
+                <h2 class="text-center">Number of requests</h2>
+                <div id="chart2"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var options1 = {
+                chart: {
+                    height: 280,
+                    type: "area"
+                },
+                colors: ['#123dea', '#ea1212'],
+                dataLabels: {
+                    enabled: false
+                },
+                series: [
+                    {
+                        name: "Over HTTP",
+                        data: [0, 3, 0, 0, 0, 0],
+                        label: 'Over HTTP'
+                    },
+                    {
+                        name: "Over HTTPS",
+                        data: [0, 2, 0, 0, 0, 0],
+                        label: 'Over HTTPS'
+                    }
+                ],
+                fill: {
+                    type: "gradient",
+                    gradient: {
+                        shadeIntensity: 4,
+                        opacityFrom: 0.7,
+                        opacityTo: 0.9,
+                        stops: [0, 90, 100]
+                    }
+                },
+                xaxis: {
+                    categories: ['9:00 AM', '9:30 AM', '10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM', '12:00 PM'],
+                    title: {
+                        text: 'Time(UTC)' // Specify the X-axis name here
+                    }
+                }
+            };
+
+            var options2 = {
+                chart: {
+                    height: 280,
+                    type: "area"
+                },
+                colors: ['#FE5553', '#00E396'],
+                dataLabels: {
+                    enabled: false
+                },
+                series: [
+                    {
+                        name: "Number of HTTP requests",
+                        data: [2, 3, 0, 0, 0, 0],
+                        label: 'Number of HTTP requests'
+                    },
+                    {
+                        name: "Number of HTTPS requests",
+                        data: [2, 1, 0, 0, 0, 0],
+                        label: 'Number of HTTPS requests'
+                    }
+                ],
+                fill: {
+                    type: "gradient",
+                    gradient: {
+                        shadeIntensity: 4,
+                        opacityFrom: 0.7,
+                        opacityTo: 0.9,
+                        stops: [0, 90, 100]
+                    }
+                },
+                xaxis: {
+                    categories: ['9:00 AM', '9:30 AM', '10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM', '12:00 PM'],
+                    title: {
+                        text: 'Time(UTC)' // Specify the X-axis name here
+                    }
+                }
+            };
+
+            // Create instances of ApexCharts for each chart
+            var chart1 = new ApexCharts(document.querySelector("#chart1"), options1);
+            var chart2 = new ApexCharts(document.querySelector("#chart2"), options2);
+
+            // Render each chart
+            chart1.render();
+            chart2.render();
+        });
+    </script>
+{% endblock %}

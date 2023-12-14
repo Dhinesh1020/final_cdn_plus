@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+
+{% block right_content %}
+    <div class="tabs">
+        <button class="tab-button" onclick="openForm('form1')">CloudFront</button>
+        <button class="tab-button" onclick="openForm('form2')">Azure</button>
+        <!-- Add more buttons for additional forms as needed -->
+    </div>
+    <div class="form-container">
+        <div id="form1" class="form">
+            <h4>Onboard Cloudfront CDN Distribution - </h4>
+            <form method="POST" action="/add_distribution/">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="origin_source">Origin Source:</label>
+                    <select class="form-control" id="origin_source" name="origin_source" required>
+                        <option value="s3">S3</option>
+                        <option value="customized">Customized</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="origin_name">Origin Name:</label>
+                    <input type="text" class="form-control" id="origin_name" name="origin_name" placeholder="Enter Origin Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="origin_domain">Origin Domain:</label>
+                    <input type="text" class="form-control" id="origin_domain" name="origin_domain" placeholder="Enter Origin Domain" value="{{ origin_domain }}" required>
+                </div>       
+                <div class="form-group">
+                    <label for="allowed_http_methods">Allowed HTTP methods:</label>
+                    <select class="form-control" id="allowed_http_methods" name="allowed_http_methods" required>
+                        <option value="GET, HEAD">GET, HEAD</option>
+                        <option value="GET, HEAD, OPTIONS">GET, HEAD, OPTIONS</option>
+                        <option value="GET, HEAD, OPTIONS, PUT, POST, PATCH, DELETE">GET, HEAD, OPTIONS, PUT, POST, PATCH, DELETE</option>                        
+                    </select>
+                </div>       
+                <div class="form-group">
+                    <label for="price_class">Price Class:</label>
+                    <select class="form-control" id="price_class" name="price_class" required>
+                        <option value="Use all edge locations (best performance)">Use all edge locations (best performance)</option>
+                        <option value="Use North America, Europe, Asia, Middle East, and Africa">Use North America, Europe, Asia, Middle East, and Africa</option>
+                        <option value="Use only North America and Europe">Use only North America and Europe</option>                        
+                    </select>
+                </div>   
+                <div class="form-group">
+                    <label>Supported HTTP Versions:</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox">
+                            <input type="checkbox" id="http2" name="supported_http_versions[]" value="HTTP2">
+                            <label for="http2">HTTP2</label>
+                        </div>
+                        <div class="checkbox">
+                            <input type="checkbox" id="http3" name="supported_http_versions[]" value="HTTP3">
+                            <label for="http3">HTTP3</label>
+                        </div>
+                    </div>
+                </div>                    
+                <div class="form-group">
+                    <label>Cache Policy:</label><br>
+                    <label class="radio-inline">
+                        <input type="radio" name="cache_policy" value="assign_cache_policy" onclick="showCachePolicyOptions()"> Assign Cache Policy
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="cache_policy" value="assign_custom_cache_ttl" onclick="showCustomCacheTTL()"> Assign Custom Cache - TTL
+                    </label>
+                </div>
+                <!-- Cache Policy Options (Initially Hidden) -->
+                <div id="cachePolicyOptions" style="display: none;">
+                    <label for="cache_policy_set">Select Cache Policy:</label>
+                    <select class="form-control" id="cache_policy_set" name="cache_policy_set">
+                        <option value="CachingOptimized">CachingOptimized</option>
+                        <option value="CachingDisabled">CachingDisabled</option>
+                        <option value="CachingOptimizedForUncompressedObjects">CachingOptimizedForUncompressedObjects</option>
+                        <option value="Elemental-MediaPackage">Elemental-MediaPackage</option>
+                        <option value="Amplify">Amplify</option>
+                    </select>
+                </div>
+                <!-- Custom Cache TTL Options (Initially Hidden) -->
+                <div id="customCacheTTL" style="display: none;">
+                    <label for="default_ttl">Default TTL:</label>
+                    <input type="text" class="form-control" id="default_ttl" name="default_ttl">
+                    <label for="min_ttl">Min TTL:</label>
+                    <input type="text" class="form-control" id="min_ttl" name="min_ttl">
+                    <label for="max_ttl">Max TTL:</label>
+                    <input type="text" class="form-control" id="max_ttl" name="max_ttl">
+                </div>
+                <script>
+                    function showCachePolicyOptions() {
+                        document.getElementById('cachePolicyOptions').style.display = 'block';
+                        document.getElementById('customCacheTTL').style.display = 'none';
+                    }
+                    function showCustomCacheTTL() {
+                        document.getElementById('cachePolicyOptions').style.display = 'none';
+                        document.getElementById('customCacheTTL').style.display = 'block';
+                    }
+                </script>                
+                <style>
+                    .form-button {
+                        margin-top: 7px; /* Adjust the value as needed */
+                        margin-bottom: 7px; /* Adjust the value as needed */
+                    }
+                </style>                
+                <button class="form-button" type="submit" style="margin-top: 7x; margin-bottom: 7px;">Create Distribution</button>
+            </form>
+        </div>
+        
+        <div id="form2" class="form" style="display:none;">
+            <h4>Onboard Azure CDN Distribution - </h4>
+            <form method="POST" action="/add_distribution/">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="origin_source">Origin Source:</label>
+                    <input type="text" class="form-control" id="origin_source" name="origin_source" placeholder="Enter Origin Source" required>
+                </div>
+                <div class="form-group">
+                    <label for="origin_name">Origin Name:</label>
+                    <input type="text" class="form-control" id="origin_name" name="origin_name" placeholder="Enter Origin Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="origin_domain">Origin Domain:</label>
+                    <input type="text" class="form-control" id="origin_domain" name="origin_domain" placeholder="Enter Origin Domain" required>
+                </div>        
+                <button class="form-button" type="submit">Create Distribution</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openForm(formName) {
+            var i, tabcontent;
+            tabcontent = document.getElementsByClassName("form");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            document.getElementById(formName).style.display = "block";
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var forms = document.querySelectorAll('form');
+            forms.forEach(function(form) {
+                form.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    // Assuming the form action is "/add_distribution/"
+                    var formData = new FormData(form);
+                    fetch(form.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-CSRFToken': formData.get('csrfmiddlewaretoken'),
+                        }
+                    }).then(function(response) {
+                        // Check if the response is successful (status code 200-299)
+                        if (response.ok) {
+                            // Redirect to inventory_page.html after successful form submission
+                            window.location.href = '/inventory';
+                        } else {
+                            // Handle the error case, e.g., display an error message
+                            console.error('Form submission failed:', response.statusText);
+                        }
+                    }).catch(function(error) {
+                        console.error('Error during form submission:', error);
+                    });
+                });
+            });
+        });
+    </script>    
+{% endblock %}

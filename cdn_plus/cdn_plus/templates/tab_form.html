@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block right_content %}
+    <div class="tabs">
+        <button class="tab-button" onclick="openForm('form1')">Cloud Front</button>
+        <button class="tab-button" onclick="openForm('form2')">Cloud Flare</button>
+        <!-- Add more buttons for additional forms as needed -->
+    </div>
+
+    <div class="form-container">
+        <div id="form1" class="form">
+            <h1>CDN Creation</h1>
+            <form method="post" action="{% url 'distribution' %}">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label class="form-label" for="name">Name:</label>
+                    <input class="form-input" type="text" id="name" name="name">
+                </div>
+        
+                <div class="form-group">
+                    <label class="form-label" for="email">Email:</label>
+                    <input class="form-input" type="email" id="email" name="email">
+                </div>
+        
+                <div class="form-group">
+                    <label class="form-label" for="message">Message:</label>
+                    <textarea class="form-textarea" id="message" name="message"></textarea>
+                </div>
+        
+                <button class="form-button" type="submit">Create CDN Distribution</button>
+            </form>
+        </div>
+    
+        <div id="form2" class="form" style="display:none;">
+            <h1>Form 2 CDN Creation</h1>
+            <form method="post" action="{% url 'distribution' %}">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label class="form-label" for="name">Form 2 Name:</label>
+                    <input class="form-input" type="text" id="name" name="name">
+                </div>
+        
+                <div class="form-group">
+                    <label class="form-label" for="email"> Form 2  Email:</label>
+                    <input class="form-input" type="email" id="email" name="email">
+                </div>
+        
+                <div class="form-group">
+                    <label class="form-label" for="message"> Form 2 Message:</label>
+                    <textarea class="form-textarea" id="message" name="message"></textarea>
+                </div>
+        
+                <button class="form-button" type="submit">Create CDN Distribution</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+

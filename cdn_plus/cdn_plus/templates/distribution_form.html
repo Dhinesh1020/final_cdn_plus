@@ -1,0 +1,45 @@
+<!-- templates/contact.html -->
+
+{% extends 'base.html' %}
+{% load static %}
+{% block right_content %}
+<div class="form-container">
+    <img style="max-width:100px;max-height:100px;" src="{% static 'cdn_plus/css/amazon_cloud_front_logo.png' %}" alt="Amazon Cloud Front">
+    <form method="post" action="{% url 'distribution' %}">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label class="form-label" for="aws_access_key">AWS Access Key:</label>
+            <input class="form-input" type="password" id="aws_access_key" name="aws_access_key">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label" for="aws_secret_access_key">AWS Secret Key Access:</label>
+            <input class="form-input" type="password" id="aws_secret_access_key" name="aws_secret_access_key">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label" for="aws_region">AWS Region:</label>
+            <input class="form-input" type="password" id="aws_region" name="aws_region">
+        </div>
+
+        <button class="form-button" type="submit">Submit</button>
+    </form>
+</div>
+{% endblock %}
+
+
+
+
+
+
+{% comment %} 
+<div>
+    <h3>CDN Creation</h3>
+    <p>This content appears on the right side of the menu bar.</p>
+    <form method="post" action="{% url 'distribution' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="action-button">Create CDN Distribution</button>
+    </form>
+</div> {% endcomment %}

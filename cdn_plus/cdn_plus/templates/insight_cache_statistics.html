@@ -1,0 +1,215 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Multiple ApexCharts with Headers
+{% endblock %}
+
+{% block right_content %}
+    <div class="container mt-5">
+        <h1 class="text-center"></h1>
+
+        <div class="row">
+            <div class="col-md-4">
+                <!-- Chart Container for chart1 -->
+                <h2 class="text-center">Total Requests</h2>
+                <div id="chart1"></div>
+            </div>
+            <div class="col-md-4">
+                <!-- Chart Container for chart2 -->
+                <h2 class="text-center">Percentage of viewer requests by result type</h2>
+                <div id="chart2"></div>
+            </div>
+            <div class="col-md-4">
+                <!-- Chart Container for chart3 -->
+                <h2 class="text-center">HTTP Status Codes</h2>
+                <div id="chart3"></div>
+            </div>
+            <div class="col-md-4">
+                <!-- Chart Container for chart3 -->
+                <h2 class="text-center">Bytes Transfered to viewers</h2>
+                <div id="chart4"></div>
+            </div>            
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script>
+        var options1 = {
+            chart: {
+                height: 280,
+                type: "area"
+            },
+            colors: [],
+            dataLabels: {
+                enabled: false
+            },
+            series: [
+                {
+                    name: "Requests",
+                    data: [2, 4, 0, 0, 0, 0],
+                    label: 'Request'
+                }
+
+            ],
+            fill: {
+                type: "gradient",
+                gradient: {
+                    shadeIntensity: 4,
+                    opacityFrom: 0.7,
+                    opacityTo: 0.9,
+                    stops: [0, 90, 100]
+                }
+            },
+            xaxis: {
+                categories: ['9:00 AM', '9:30 AM', '10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM', '12:00 PM'],
+            }
+        };
+
+        var options2 = {
+            chart: {
+                height: 280,
+                type: "area"
+            },
+            colors: ['#FE5553', '#00E396', '#09E768'],
+            dataLabels: {
+                enabled: false
+            },
+            series: [
+                {
+                    name: "Hits",
+                    data: [2, 4, 0, 0, 0, 0],
+                    label: 'Hits'
+                },
+                {
+                    name: "Misses",
+                    data: [0, 0, 0, 0, 0,0],
+                    label: 'Misses'
+                },
+                {
+                    name: "Errors",
+                    data: [0, 0, 0, 0, 0,0],
+                    label: 'Errors'
+                }
+
+            ],
+            fill: {
+                type: "gradient",
+                gradient: {
+                    shadeIntensity: 4,
+                    opacityFrom: 0.7,
+                    opacityTo: 0.9,
+                    stops: [0, 90, 100]
+                }
+            },
+            xaxis: {
+                categories: ['9:00 AM', '9:30 AM', '10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM', '12:00 PM'],
+            }
+        };
+
+        var options3 = {
+            chart: {
+                height: 280,
+                type: "area"
+            },
+            colors: ['#1de420', '#1d45e4', '#eabb12', '#ed1212'],
+            dataLabels: {
+                enabled: false
+            },
+            series: [
+                {
+                    name: "2xx",
+                    data: [2, 4, 0, 0, 0,0],
+                    label: '2xx'
+                },
+                {
+                    name: "3xx",
+                    data: [0, 0, 0, 0, 0,0],
+                    label: '3xx'
+                },
+                {
+                    name: "4xx",
+                    data: [0, 0, 0, 0, 0,0],
+                    label: '4xx'
+                },
+                {
+                    name: "5xx",
+                    data: [0, 0, 0, 0, 0,0],
+                    label: '5xx'
+                }
+
+            ],
+            fill: {
+                type: "gradient",
+                gradient: {
+                    shadeIntensity: 4,
+                    opacityFrom: 0.7,
+                    opacityTo: 0.9,
+                    stops: [0, 90, 100]
+                }
+            },
+            xaxis: {
+                categories: ['9:00 AM', '9:30 AM', '10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM', '12:00 PM'],
+            }
+        };
+
+        var options4 = {
+            chart: {
+                height: 280,
+                type: "area"
+            },
+            colors: ['#4cea12', '#123dea'],
+            dataLabels: {
+                enabled: false
+            },
+            series: [
+                {
+                    name: "Total Bytes",
+                    data: [78, 90, 0, 0, 0,0],
+                    label: 'Total Bytes'
+                },
+                {
+                    name: "Bytes from misses",
+                    data: [0, 0, 0, 0, 0,0],
+                    label: 'Bytes from misses'
+                }
+
+            ],
+            fill: {
+                type: "gradient",
+                gradient: {
+                    shadeIntensity: 4,
+                    opacityFrom: 0.7,
+                    opacityTo: 0.9,
+                    stops: [0, 90, 100]
+                }
+            },
+            xaxis: {
+                categories: ['9:00 AM', '9:30 AM', '10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM', '12:00 PM'],
+            }
+        };
+
+        // Create instances of ApexCharts for each chart
+         // Create instances of ApexCharts for each chart
+         var chart1 = new ApexCharts(document.querySelector("#chart1"), options1);
+         var chart2 = new ApexCharts(document.querySelector("#chart2"), options2);
+         var chart3 = new ApexCharts(document.querySelector("#chart3"), options3);
+         var chart4 = new ApexCharts(document.querySelector("#chart4"), options4);
+ 
+         // Render each chart
+         chart1.render();
+         chart2.render();
+         chart3.render();
+         chart4.render();
+     </script>
+ 
+     <!-- Bootstrap JS and Popper.js (required for some Bootstrap components) -->
+     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+         crossorigin="anonymous"></script>
+     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+         integrity="sha384-dz3SoeTcAqxVMVKL1P1zVGpV9pqRUxCZF4+c+ZqmaWIveDd3WjZ2+2RXtF+Xhao"
+         crossorigin="anonymous"></script>
+     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+Wy6WqDhekP11FUC6sUgD/QePqissv9xS"
+         crossorigin="anonymous"></script>
+ {% endblock %}

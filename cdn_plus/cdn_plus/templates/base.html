@@ -1,0 +1,52 @@
+<!-- base.html -->
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}CDN+{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'cdn_plus/css/styles.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="{% static 'cdn_plus/js/script.js' %}"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{% static 'cdn_plus/js/dashboard.js' %}"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
+    
+</head>
+<body>
+    <header class="header-bar">
+        <img src="{% static 'cdn_plus/css/appviewx-logo.svg' %}" alt="Logo" class="logo">
+        <!-- Add content or links for the header bar -->
+        <span>CDN+</span>
+    </header>
+
+    <div class="wrapper">
+    <nav>
+        <ul>
+            <b><li><a href="{% url 'cdn_inventory' %}">Getting Started</a></li></b>
+            <b><li><a href="{% url 'insights_base' %}">Insights</a></li></b>
+            <b><li><a href="{% url 'inventory' %}">Distribution Inventory</a></li></b>
+            <b><li><a href="{% url 'dns' %}">DNS Management</a></li></b>   
+            <!--<b><li><a href="{% url 'add_distribution' %}">Create CDN Distribution</a></li></b>-->
+            <!-- Add more navbar items as needed -->
+        </ul>
+    </nav>
+    <div class="content-wrapper">
+        <div class="right-content">
+            {% block right_content %}{% endblock %}
+        </div>
+    </div>
+    </div>
+    {% block content %}{% endblock %}
+
+    {% comment %} <script src="{% static 'cdn_plus/js/scripts.js' %}"></script> {% endcomment %}
+</body>
+</html>

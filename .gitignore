@@ -1,0 +1,7 @@
+my_proj/
+cdn_plus/__pycache__
+cdn_plus/cdn_plus/__pycache__
+cdn_plus/vendors/cloudfront/__pycache__
+cdn_plus/cdn_plus/multicdn/__pycache__
+cdn_plus/cdn_plus/migrations/__pycache__
+cdn_plus/vendors/dns/__pycache__
